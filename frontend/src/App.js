@@ -7,15 +7,8 @@ class App extends Component {
     this.state = {
       value: "",
       data: "",
-      artist: "",
-      album: "",
-      track: "",
-      artistImg: "",
-      albumImg: "",
-      trackImg: "",
-      sample: "",
-      artwork: "",
-      price: ""
+      resultArr: null,
+      artwork: ""
     };
 
     this.changeHandler = this.changeHandler.bind(this);
@@ -23,7 +16,6 @@ class App extends Component {
   }
 
   submitHandler = e => {
-    console.log(this.state.value);
     fetch("/home", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -41,51 +33,45 @@ class App extends Component {
     fetch("/home")
       .then(res => res.json())
       .then(result => {
-        console.log("Message " + JSON.stringify(result[0][0]));
-        this.setState(
-          {
-            artist: result[0][0].artistName,
-            album: result[0][0].collectionName,
-            track: result[0][0].trackName,
-            artistImg: result[0][0].artistViewUrl,
-            albumImg: result[0][0].collectionViewUrl,
-            trackImg: result[0][0].trackViewUrl,
-            sample: result[0][0].previewUrl,
-            artwork: result[0][0].artworkUrl100,
-            price: result[0][0].trackPrice
-          },
-          () => console.log(this.state)
-        );
+        this.setState({
+          resultArr: result,
+          artwork: result[0].artworkUrl100
+        });
       })
       .catch(error => console.log("Error " + error));
   }
 
   render() {
     let display = "";
-    console.log("RENDER");
-    console.log(this.state);
 
     if (this.state.artwork === "" || this.state.artwork === undefined) {
-      display = <h1>No Tracks Have Yet Been Loaded</h1>;
-    } else {
       display = (
-        <div>
-          <ul>
-            <li>{this.state.artist}</li>
-            <li>{this.state.album}</li>
-            <li>{this.state.track}</li>
-            <li>
-              <audio src={this.state.sample} controls>
+        <tr>
+          <td>No Tracks Loaded Yet</td>
+        </tr>
+      );
+    } else {
+      display = this.state.resultArr.map((key, i) => {
+        return (
+          <tr key={i}>
+            <td>{this.state.resultArr[i].artistName}</td>
+            <td>{this.state.resultArr[i].collectionName}</td>
+            <td>{this.state.resultArr[i].trackName}</td>
+            <td>
+              <audio src={this.state.resultArr[i].previewUrl} controls>
                 AUDIO FILE
               </audio>
-            </li>
-            <li>
-              <img src={this.state.artwork} />
-            </li>
-            <li>{this.state.price}</li>
-          </ul>
-        </div>
-      );
+            </td>
+            <td>
+              <img src={this.state.resultArr[i].artworkUrl100} alt="Alt" />
+            </td>
+            <td>{this.state.resultArr[i].trackPrice}</td>
+            <td>
+              <button>Remove</button>
+            </td>
+          </tr>
+        );
+      });
     }
 
     return (
@@ -101,8 +87,20 @@ class App extends Component {
           />
           <button type="submit">SUBMIT DETAILS</button>
         </form>
-
-        {display}
+        <table>
+          <thead>
+            <tr>
+              <td>Artist Name</td>
+              <td>Album Name</td>
+              <td>Song Title</td>
+              <td>Song Preview</td>
+              <td>Album Image</td>
+              <td>Song Price</td>
+              <td>Remove</td>
+            </tr>
+          </thead>
+          <tbody>{display}</tbody>
+        </table>
       </div>
     );
   }

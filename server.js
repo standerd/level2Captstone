@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
-const fs = require("fs");
 
 let userInfo = [];
 let appStart = true;
@@ -16,14 +15,15 @@ app.get("/home", (req, res) => {
   if (appStart) {
     res.json("No Data Yet");
   } else {
-    fetch("https://itunes.apple.com/search?term=" + searchCriteria + "&limit=1")
+    fetch(
+      "https://itunes.apple.com/search?term=" + searchCriteria + "&limit=15"
+    )
       .then(response => response.json())
       .then(result => {
         if (searchError) {
           res.json("Incorrect Data Entered Please Try Again");
         } else {
-          userInfo.push(result.results);
-          res.send(userInfo);
+          res.send(result.results);
         }
       })
       .catch(error => {
