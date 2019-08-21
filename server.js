@@ -6,6 +6,8 @@ const fetch = require("node-fetch");
 let userInfo = [];
 let appStart = true;
 let searchCriteria = "";
+let searchQty = "";
+let searchCat = "";
 let searchError = false;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -16,7 +18,11 @@ app.get("/home", (req, res) => {
     res.json("No Data Yet");
   } else {
     fetch(
-      "https://itunes.apple.com/search?term=" + searchCriteria + "&limit=15"
+      "https://itunes.apple.com/search?term=" +
+        searchCriteria +
+        "&limit=25" +
+        "&media=" +
+        searchCat
     )
       .then(response => response.json())
       .then(result => {
@@ -33,14 +39,17 @@ app.get("/home", (req, res) => {
 });
 
 app.post("/home", (req, res) => {
+  console.log(req.body);
+
   res.send({ status: "I have received and processed your Request" });
   if (req.body.name === "") {
     searchError = true;
   } else {
-    searchCriteria = req.body.name.replace(" ", "+");
+    searchCriteria = req.body.term.replace(" ", "+");
+    searchCat = req.body.cat;
+    searchQty = req.body.qty;
     searchError = false;
   }
-
   appStart = false;
 });
 

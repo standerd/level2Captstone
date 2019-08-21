@@ -4,20 +4,31 @@
   margin: 1% auto;
 }
 
-table {
+.searchTable {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  margin: 1% auto;
 }
 
-tr:nth-child(even) {
-  background-color: lightblue;
-}
-
-thead {
+thead td {
   font-weight: bold;
+  background-image: linear-gradient(lightblue, lightgreen);
+  padding: 5px;
 }
 
-td {
-  margin-top: 15px;
-  padding-top: 15px;
+video {
+  width: 200px;
+}
+
+td:first-child {
+  border-top-left-radius: 10px;
+}
+td:last-child {
+  border-top-right-radius: 10px;
+}
+td:first-child {
+  border-bottom-left-radius: 10px;
+}
+td:last-child {
+  border-bottom-right-radius: 10px;
 }

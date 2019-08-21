@@ -1,35 +1,75 @@
 import React, { Component } from "react";
+import SearchBar from "./containers/SearchBar/searchBar";
+import SearchResults from "./containers/SearchResults/searchResults";
+import UserFavorites from "./containers/UserFavorites/userFavorites";
+import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: "",
+      term: "",
+      cat: "",
       data: "",
       resultArr: null,
-      artwork: ""
+      artwork: "",
+      userFavorites: []
     };
 
-    this.changeHandler = this.changeHandler.bind(this);
+    this.changeTermHandler = this.changeTermHandler.bind(this);
+    this.changeCatHandler = this.changeCatHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
+    this.addFavoritesHandler = this.addFavoritesHandler.bind(this);
   }
 
   submitHandler = e => {
+    e.preventDefault();
     fetch("/home", {
       method: "POST",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ name: this.state.value })
+      body: JSON.stringify({
+        term: this.state.term,
+        cat: this.state.cat,
+        qty: this.state.qty
+      })
     })
       .then(res => res.json())
+      .then(this.fetchData())
       .catch(error => console.log("Error" + error));
+      this.props.history.push("/")
+      
   };
 
-  changeHandler = e => {
-    this.setState({ value: e.target.value });
+  
+
+  changeTermHandler = e => {
+    this.setState({ term: e.target.value });
   };
 
-  componentDidMount() {
+  changeCatHandler = e => {
+    this.setState({ cat: e.target.value });
+  };
+
+  addFavoritesHandler = e => {
+    let index = e.target.id;
+    console.log("ID is = " + index);
+    let userSelection = {
+      artist: this.state.resultArr[index].artistName,
+      track: this.state.resultArr[index].trackName,
+      kind: this.state.resultArr[index].kind,
+      preview: this.state.resultArr[index].previewUrl,
+      artwork: this.state.resultArr[index].artworkUrl100,
+      price: this.state.resultArr[index].trackPrice,
+      id: this.state.userFavorites.length
+    };
+    this.setState(prevStat => ({
+      userFavorites: [...prevStat.userFavorites, userSelection]
+    }));
+    console.log("USERSELECTION " + this.state.userFavorites);
+  };
+
+  fetchData = () => {
     fetch("/home")
       .then(res => res.json())
       .then(result => {
@@ -39,71 +79,48 @@ class App extends Component {
         });
       })
       .catch(error => console.log("Error " + error));
+  };
+
+  componentDidMount() {
+    this.fetchData();
+    console.log("State 2 " + this.state.userFavorites);
   }
 
   render() {
-    let display = "";
-
-    if (this.state.artwork === "" || this.state.artwork === undefined) {
-      display = (
-        <tr>
-          <td>No Tracks Loaded Yet</td>
-        </tr>
-      );
-    } else {
-      display = this.state.resultArr.map((key, i) => {
-        return (
-          <tr key={i}>
-            <td>{this.state.resultArr[i].artistName}</td>
-            <td>{this.state.resultArr[i].collectionName}</td>
-            <td>{this.state.resultArr[i].trackName}</td>
-            <td>
-              <audio src={this.state.resultArr[i].previewUrl} controls>
-                AUDIO FILE
-              </audio>
-            </td>
-            <td>
-              <img src={this.state.resultArr[i].artworkUrl100} alt="Alt" />
-            </td>
-            <td>{this.state.resultArr[i].trackPrice}</td>
-            <td>
-              <button>Remove</button>
-            </td>
-          </tr>
-        );
-      });
-    }
-
     return (
       <div className="App">
-        <h1> HELLO WORLD </h1>
-        <form id="serach" onSubmit={this.submitHandler}>
-          <input
-            id="item"
-            name="item"
-            size="50"
-            placeholder="Please Add Your Search Item Here"
-            onChange={this.changeHandler}
-          />
-          <button type="submit">SUBMIT DETAILS</button>
-        </form>
-        <table>
-          <thead>
-            <tr>
-              <td>Artist Name</td>
-              <td>Album Name</td>
-              <td>Song Title</td>
-              <td>Song Preview</td>
-              <td>Album Image</td>
-              <td>Song Price</td>
-              <td>Remove</td>
-            </tr>
-          </thead>
-          <tbody>{display}</tbody>
-        </table>
+        <SearchBar
+          changeTermHandler={this.changeTermHandler}
+          changeCatHandler={this.changeCatHandler}
+          submitHandler={this.submitHandler}
+        />
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <SearchResults
+              {...props}
+              artwork={this.state.artwork}
+              resultArr={this.state.resultArr}
+              addFavorites={this.addFavoritesHandler}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path="/favorites"
+          render={props => (
+            <UserFavorites
+              {...props}
+              artwork={this.state.artwork}
+              resultArr={this.state.userFavorites}
+            />
+          )}
+        />
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
