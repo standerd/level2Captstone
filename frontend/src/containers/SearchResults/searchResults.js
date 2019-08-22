@@ -1,16 +1,34 @@
 import React from "react";
 import "./searchResults.css";
+import Spinner from "../Spinner/spinner";
 
 const searchResults = props => {
-  let display = "";
+  let display = null;
+  let spinner = "";
 
-  if (props.artwork === "" || props.artwork === undefined) {
+  // below checks if the data has been loaded or not and shows a spinner while the
+  // loading takes place.
+
+  if (!props.loaded && !props.loadingError) {
+    spinner = <Spinner />;
+  } else if (props.loadingError) {
+    spinner = <h1>There Was An Error, please check input and search again.</h1>;
+  }
+
+  if (
+    props.artwork === "" ||
+    props.artwork === undefined ||
+    props.resultArr === null
+  ) {
     display = (
       <tr>
-        <td>No Tracks Loaded Yet</td>
+        <td>Please Search Above for Content</td>
       </tr>
     );
   } else {
+    // if the preview URL returns a video preview, the table is adjusted for video
+    // instead of audio.
+
     display = props.resultArr.map((key, i) => {
       if (
         props.resultArr[i].kind === "music-video" ||
@@ -32,13 +50,20 @@ const searchResults = props => {
             </td>
             <td>{props.resultArr[i].trackPrice}</td>
             <td>
-              <button id={i} onClick={props.addFavorites}>
+              <button
+                value="Add"
+                className="inActive"
+                id={i}
+                onClick={props.addFavorites}
+              >
                 Add
               </button>
             </td>
           </tr>
         );
       } else {
+        // if the preview URL is an audio type the table returns an audio element and not video
+
         return (
           <tr key={i}>
             <td>{props.resultArr[i].artistName}</td>
@@ -54,7 +79,12 @@ const searchResults = props => {
             </td>
             <td>{props.resultArr[i].trackPrice}</td>
             <td>
-              <button id={i} onClick={props.addFavorites}>
+              <button
+                className="inActive"
+                value="Add"
+                id={i}
+                onClick={props.addFavorites}
+              >
                 Add
               </button>
             </td>
@@ -65,6 +95,8 @@ const searchResults = props => {
   }
   return (
     <div>
+      <h1>Search Results</h1>
+      {spinner}
       <table className="searchTable">
         <thead>
           <tr>

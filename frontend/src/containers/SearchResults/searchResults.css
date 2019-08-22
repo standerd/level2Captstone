@@ -1,17 +1,50 @@
-audio {
-  width: 150px;
-}
-
 table tr:nth-of-type(even) {
   background-image: linear-gradient(lightblue, lightgreen);
   border-radius: 10px;
 }
 
+/* Image is for the Artwork styiling, seperate column in table */
+
 img {
-  height: 70%;
-  width: auto;
+  height: auto;
+  width: 5vw;
 }
 
-button:hover{
+/* Audio and video styling is for the preview styling pendind
+   on the type of data returned from the user search. */
+
+audio {
+  width: 12vw;
+  text-align: left;
+  outline: none;
+}
+
+.removeButton {
+  width: 80%;
+  white-space: normal;
+  word-wrap: break-word; /* All browsers since IE 5.5+ */
+  overflow-wrap: break-word; /* Renamed property in CSS3 draft spec */
+  height: auto;
+  font-size: 0.9rem;
+}
+
+video {
+  width: 12vw;
+  outline: none;
+  padding-top: 1%;
+}
+
+button:hover {
   cursor: pointer;
+}
+
+/* The .active class is added to the button once the user clicks on the button
+   the show them that the button was clicked and disabled for other clicks. */
+
+.active {
+  background: #ccc;
+}
+
+.active:hover {
+  cursor: not-allowed;
 }

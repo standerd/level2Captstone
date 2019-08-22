@@ -5,6 +5,9 @@ import { Link, withRouter } from "react-router-dom";
 const searchBar = props => {
   let button = "";
 
+  // Check the location of the app, and render the button to go to
+  // search or userfavorites accordingly
+
   if (props.location.pathname === "/favorites") {
     button = (
       <button>
@@ -19,19 +22,23 @@ const searchBar = props => {
     );
   }
 
+  // Props for the component only consist of the changeHandlers that deal
+  // with colleciton the user data for the search
+
   return (
     <div className="search">
       <h1> Please Search for Items Below </h1>
       <form id="serach" onSubmit={props.submitHandler}>
         <input
+          value={props.input}
           id="item"
           name="item"
           size="50"
           placeholder="Please Add Your Search Item Here"
           onChange={props.changeTermHandler}
         />
-        <select onChange={props.changeCatHandler}>
-          <option value="all">Select Category</option>
+        <select value={props.cat} onChange={props.changeCatHandler}>
+          <option value="all">Please Select</option>
           <option value="all">All</option>
           <option value="music">Music</option>
           <option value="musicVideo">Music Video</option>

@@ -16,9 +16,7 @@ thead td {
   padding: 5px;
 }
 
-video {
-  width: 200px;
-}
+/* Table Row Element Border-Radius settings */
 
 td:first-child {
   border-top-left-radius: 10px;
