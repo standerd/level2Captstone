@@ -20,11 +20,7 @@ const searchResults = props => {
     props.artwork === undefined ||
     props.resultArr === null
   ) {
-    display = (
-      <tr>
-        <td>Please Search Above for Content</td>
-      </tr>
-    );
+    display = <div className="testTable">Please Search Above for Content</div>;
   } else {
     // if the preview URL returns a video preview, the table is adjusted for video
     // instead of audio.
@@ -36,59 +32,55 @@ const searchResults = props => {
         props.resultArr[i].kind === "feature-movie"
       ) {
         return (
-          <tr key={i}>
-            <td>{props.resultArr[i].artistName}</td>
-            <td>{props.resultArr[i].trackName}</td>
-            <td>{props.resultArr[i].kind}</td>
-            <td>
-              <video src={props.resultArr[i].previewUrl} controls>
-                AUDIO FILE
-              </video>
-            </td>
-            <td>
+          <div key={i} className="testTable">
+            <div className="artist">{props.resultArr[i].artistName}</div>
+            <div className="track">{props.resultArr[i].trackName}</div>
+            <div className="kind">{props.resultArr[i].kind}</div>
+            <div className="preview">
+              <video src={props.resultArr[i].previewUrl} controls />
+            </div>
+            <div className="art">
               <img src={props.resultArr[i].artworkUrl100} alt="Alt" />
-            </td>
-            <td>{props.resultArr[i].trackPrice}</td>
-            <td>
+            </div>
+            <div className="price">{props.resultArr[i].trackPrice}</div>
+            <div className="button">
               <button
                 value="Add"
                 className="inActive"
                 id={i}
                 onClick={props.addFavorites}
               >
-                Add
+                +
               </button>
-            </td>
-          </tr>
+            </div>
+          </div>
         );
       } else {
         // if the preview URL is an audio type the table returns an audio element and not video
 
         return (
-          <tr key={i}>
-            <td>{props.resultArr[i].artistName}</td>
-            <td>{props.resultArr[i].trackName}</td>
-            <td>{props.resultArr[i].kind}</td>
-            <td>
-              <audio src={props.resultArr[i].previewUrl} controls>
-                AUDIO FILE
-              </audio>
-            </td>
-            <td>
+          <div key={i} className="testTable">
+            <div className="artist">{props.resultArr[i].artistName}</div>
+            <div className="track">{props.resultArr[i].trackName}</div>
+            <div className="kind">{props.resultArr[i].kind}</div>
+            <div className="preview">
+              <audio src={props.resultArr[i].previewUrl} controls />
+            </div>
+            <div className="art">
               <img src={props.resultArr[i].artworkUrl100} alt="Alt" />
-            </td>
-            <td>{props.resultArr[i].trackPrice}</td>
-            <td>
+            </div>
+            <div className="price">{props.resultArr[i].trackPrice}</div>
+            <div className="button">
               <button
-                className="inActive"
+                className="removeButton inActive"
                 value="Add"
                 id={i}
                 onClick={props.addFavorites}
               >
-                Add
+                +
               </button>
-            </td>
-          </tr>
+            </div>
+          </div>
         );
       }
     });
@@ -97,20 +89,16 @@ const searchResults = props => {
     <div>
       <h1>Search Results</h1>
       {spinner}
-      <table className="searchTable">
-        <thead>
-          <tr>
-            <td>Artist Name</td>
-            <td>Title</td>
-            <td>Type</td>
-            <td>Preview</td>
-            <td>Album Image</td>
-            <td>Song Price</td>
-            <td>Add</td>
-          </tr>
-        </thead>
-        <tbody>{display}</tbody>
-      </table>
+      <div className="testTable">
+        <div className="artist">Artist</div>
+        <div className="track">Title</div>
+        <div className="kind">Type</div>
+        <div className="preview">Preview</div>
+        <div className="art">Image</div>
+        <div className="price">Price</div>
+        <div className="button">Add</div>
+      </div>
+      {display}
     </div>
   );
 };

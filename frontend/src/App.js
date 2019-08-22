@@ -149,7 +149,7 @@ class App extends Component {
           )}
         />
 
-        <Route exact path="/favorites" render={props => <UserFavorites />} />
+        <Route path="/favorites" render={props => <UserFavorites />} />
       </div>
     );
   }

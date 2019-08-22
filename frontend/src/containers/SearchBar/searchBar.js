@@ -9,17 +9,9 @@ const searchBar = props => {
   // search or userfavorites accordingly
 
   if (props.location.pathname === "/favorites") {
-    button = (
-      <button>
-        <Link to="/">Back To Search</Link>
-      </button>
-    );
+    button = <Link to="/">Back To Search</Link>;
   } else if (props.location.pathname === "/") {
-    button = (
-      <button>
-        <Link to="/favorites">Go To Favorites</Link>
-      </button>
-    );
+    button = <Link to="/favorites">Go To Favorites</Link>;
   }
 
   // Props for the component only consist of the changeHandlers that deal

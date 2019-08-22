@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../SearchResults/searchResults.css";
-import Spinner from "../Spinner/spinner";
 
 class UserFavorites extends Component {
   constructor(props) {
@@ -16,12 +15,9 @@ class UserFavorites extends Component {
     fetch("/favorites")
       .then(res => res.json())
       .then(result => {
-        this.setState(
-          {
-            userFavorites: result
-          },
-          this.setState({ loaded: true })
-        );
+        this.setState({
+          userFavorites: result
+        });
       })
       .catch(error => {
         console.log("Error " + error);
@@ -49,19 +45,12 @@ class UserFavorites extends Component {
 
   render() {
     let display = "";
-    let spinner = null;
 
     if (
       this.state.userFavorites === null ||
       this.state.userFavorites[0] === undefined
     ) {
-      display = (
-        <tr>
-          <td>No Favorites Added Yet</td>
-        </tr>
-      );
-    } else if (!this.state.loaded) {
-      spinner = <Spinner />;
+      display = <div className="testTable">No Favorites Added Yet</div>;
     } else {
       display = this.state.userFavorites.map((key, i) => {
         if (
@@ -70,55 +59,51 @@ class UserFavorites extends Component {
           this.state.userFavorites[i].kind === "feature-movie"
         ) {
           return (
-            <tr key={i}>
-              <td>{this.state.userFavorites[i].artist}</td>
-              <td>{this.state.userFavorites[i].track}</td>
-              <td>{this.state.userFavorites[i].kind}</td>
-              <td>
-                <video src={this.state.userFavorites[i].preview} controls>
-                  AUDIO FILE
-                </video>
-              </td>
-              <td>
+            <div key={i} className="testTable">
+              <div className="artist">{this.state.userFavorites[i].artist}</div>
+              <div className="track">{this.state.userFavorites[i].track}</div>
+              <div className="kind">{this.state.userFavorites[i].kind}</div>
+              <div className="preview">
+                <video src={this.state.userFavorites[i].preview} controls />
+              </div>
+              <div className="art">
                 <img src={this.state.userFavorites[i].artwork} alt="Alt" />
-              </td>
-              <td>{this.state.userFavorites[i].price}</td>
-              <td>
+              </div>
+              <div className="price">{this.state.userFavorites[i].price}</div>
+              <div className="button">
                 <button
                   className="removeButton"
                   id={this.state.userFavorites[i].id}
                   onClick={this.removeFavoritesHandler}
                 >
-                  Remove
+                  X
                 </button>
-              </td>
-            </tr>
+              </div>
+            </div>
           );
         } else {
           return (
-            <tr key={i}>
-              <td>{this.state.userFavorites[i].artist}</td>
-              <td>{this.state.userFavorites[i].track}</td>
-              <td>{this.state.userFavorites[i].kind}</td>
-              <td>
-                <audio src={this.state.userFavorites[i].preview} controls>
-                  AUDIO FILE
-                </audio>
-              </td>
-              <td>
+            <div key={i} className="testTable">
+              <div className="artist">{this.state.userFavorites[i].artist}</div>
+              <div className="track">{this.state.userFavorites[i].track}</div>
+              <div className="kind">{this.state.userFavorites[i].kind}</div>
+              <div className="preview">
+                <audio src={this.state.userFavorites[i].preview} controls />
+              </div>
+              <div className="art">
                 <img src={this.state.userFavorites[i].artwork} alt="Alt" />
-              </td>
-              <td>{this.state.userFavorites[i].price}</td>
-              <td>
+              </div>
+              <div className="price">{this.state.userFavorites[i].price}</div>
+              <div className="button">
                 <button
                   className="removeButton"
                   id={this.state.userFavorites[i].id}
                   onClick={this.removeFavoritesHandler}
                 >
-                  Remove
+                  X
                 </button>
-              </td>
-            </tr>
+              </div>
+            </div>
           );
         }
       });
@@ -126,22 +111,17 @@ class UserFavorites extends Component {
 
     return (
       <div>
-        <h1>Your Favorites</h1>
-        {spinner}
-        <table className="searchTable">
-          <thead>
-            <tr>
-              <td>Artist Name</td>
-              <td>Title</td>
-              <td>Type</td>
-              <td>Preview</td>
-              <td>Album Image</td>
-              <td>Song Price</td>
-              <td>Remove</td>
-            </tr>
-          </thead>
-          <tbody>{display}</tbody>
-        </table>
+        <h1>My Favorites</h1>
+        <div className="testTable">
+          <div className="artist">Artist</div>
+          <div className="track">Title</div>
+          <div className="kind">Type</div>
+          <div className="preview">Preview</div>
+          <div className="art">Image</div>
+          <div className="price">Price</div>
+          <div className="button">X</div>
+        </div>
+        {display}
       </div>
     );
   }

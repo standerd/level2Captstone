@@ -1,4 +1,4 @@
-table tr:nth-of-type(even) {
+.testTable:nth-of-type(odd) {
   background-image: linear-gradient(lightblue, lightgreen);
   border-radius: 10px;
 }
@@ -47,4 +47,45 @@ button:hover {
 
 .active:hover {
   cursor: not-allowed;
+}
+
+.testTable {
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5% 2%;
+  border-radius: 15px;
+  margin-bottom: 1%;
+  text-align: center;
+}
+
+.artist {
+  width: 15%;
+}
+
+.track {
+  width: 17%;
+}
+
+.kind {
+  width: 10%;
+}
+
+.preview {
+  width: 25%;
+}
+
+.art {
+  width: 15%;
+}
+
+.price {
+  width: 8%;
+}
+
+.button {
+  width: 5%;
+  padding: 2% 0;
 }

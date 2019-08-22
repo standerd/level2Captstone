@@ -67,9 +67,8 @@ app.post("/home", (req, res) => {
 
 app.put("/home", (req, res) => {
   let content = req.body.content;
-  console.log(JSON.stringify(content));
   userFavorites.push(content);
-  res.json("thanks I have ammended the array for you");
+  res.json("thanks, I have ammended the array for you");
 });
 
 app.delete("/home", (req, res) => {
