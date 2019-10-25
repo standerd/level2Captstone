@@ -42,7 +42,6 @@ const searchResults = props => {
             <div className="art">
               <img src={props.resultArr[i].artworkUrl100} alt="Alt" />
             </div>
-            <div className="price">{props.resultArr[i].trackPrice}</div>
             <div className="button">
               <button
                 value="Add"
@@ -68,7 +67,6 @@ const searchResults = props => {
             <div className="art">
               <img src={props.resultArr[i].artworkUrl100} alt="Alt" />
             </div>
-            <div className="price">{props.resultArr[i].trackPrice}</div>
             <div className="button">
               <button
                 className="removeButton inActive"
@@ -94,7 +92,6 @@ const searchResults = props => {
         <div className="kind">Type</div>
         <div className="preview">Preview</div>
         <div className="art">Image</div>
-        <div className="price">Price</div>
         <div className="button">Add</div>
       </div>
       {display}

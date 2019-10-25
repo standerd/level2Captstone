@@ -3,6 +3,23 @@
   border-radius: 10px;
 }
 
+@media (max-width: 600px) {
+  .testTable {
+    font-size: 0.7rem;
+    color: pink;
+    padding: 0.2%;
+    margin: 0.2%;
+  }
+  .removeButton{
+    padding: 0;
+    text-align: left;
+  }
+
+  audio{
+    text-align: right;
+  }
+}
+
 /* Image is for the Artwork styiling, seperate column in table */
 
 img {

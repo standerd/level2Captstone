@@ -9,6 +9,8 @@
   box-shadow: 2px 2px 2px rgb(119, 206, 177);
 }
 
+
+
 .search input,
 select,
 button {
@@ -36,4 +38,22 @@ button {
 a {
   text-decoration: none;
   color: rgb(44, 78, 87);
+}
+
+@media (max-width: 600px) {
+  .search {
+    font-size: 1rem;
+  }
+
+select,
+button {
+  display: block;
+  margin: 0 auto;
+  font-size: 0.8rem;
+}
+
+.search input{
+  font-size: 0.7rem;
+}
+
 }
