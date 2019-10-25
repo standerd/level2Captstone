@@ -16,17 +16,7 @@ app.use(bodyParser.json());
 //helmet is used for increased security.
 app.use(helmet());
 
-// for deployment purposes, ensures that heroku knows which default html file to return on start.
-if (process.env.NODE_ENV === "production") {
-  // Exprees will serve up production assets
-  app.use(express.static("client/build"));
 
-  // Express serve up index.html file if it doesn't recognize route
-  const path = require("path");
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
-}
 
 // API request, based on Post request received from React front end.
 
@@ -94,6 +84,18 @@ app.delete("/home", (req, res) => {
   userFavorites.splice(index, 1);
   res.json("thanks, I have deleted the items for you");
 });
+
+// for deployment purposes, ensures that heroku knows which default html file to return on start.
+if (process.env.NODE_ENV === "production") {
+  // Exprees will serve up production assets
+  app.use(express.static("client/build"));
+
+  // Express serve up index.html file if it doesn't recognize route
+  const path = require("path");
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 //error handler
 app.use((err, req, res, next) => {
