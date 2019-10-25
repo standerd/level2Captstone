@@ -8,10 +8,10 @@ const searchBar = props => {
   // Check the location of the app, and render the button to go to
   // search or userfavorites accordingly
 
-  if (props.location.pathname === "/favorites") {
+  if (props.location.pathname === "/userFav") {
     button = <Link to="/">Back To Search -></Link>;
   } else if (props.location.pathname === "/") {
-    button = <Link to="/favorites">Go To Favorites-></Link>;
+    button = <Link to="/userFav">Go To Favorites-></Link>;
   }
 
   // Props for the component only consist of the changeHandlers that deal

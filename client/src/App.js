@@ -150,7 +150,7 @@ class App extends Component {
           )}
         />
 
-        <Route path="/favorites" render={props => <UserFavorites />} />
+        <Route path="/userFav" render={props => <UserFavorites />} />
       </div>
     );
   }

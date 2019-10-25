@@ -16,8 +16,6 @@ app.use(bodyParser.json());
 //helmet is used for increased security.
 app.use(helmet());
 
-
-
 // API request, based on Post request received from React front end.
 
 app.get("/home", (req, res) => {
@@ -51,7 +49,7 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/favorites", (req, res) => {
-  res.json({data:userFavorites});
+  res.json({ data: userFavorites });
 });
 
 // Post request is received from React front end and the search values are stored in variables
