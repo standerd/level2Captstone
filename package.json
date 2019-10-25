@@ -4,6 +4,7 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.17.1",
+    "helmet": "^3.21.2",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
@@ -11,7 +12,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "server": "nodemon server.js",
+    "start": "node app.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",

@@ -45,7 +45,7 @@ class App extends Component {
           loaded: false,
           errorLoading: false,
           term: "",
-          cat: "Please Select"
+          cat: "Content Type"
         })
       )
       .then(this.fetchData())
@@ -84,6 +84,7 @@ class App extends Component {
     this.storeFavorites(userSelection);
   };
 
+  //sends the usersfavorite item to be added to the users array.
   storeFavorites = favorites => {
     fetch("/home", {
       method: "PUT",

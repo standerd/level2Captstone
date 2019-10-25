@@ -11,6 +11,10 @@ class UserFavorites extends Component {
     this.removeFavoritesHandler = this.removeFavoritesHandler.bind(this);
   }
 
+  //get request is sent to the server to return the user favorites.
+  //set as seperate function and not inside componentDidMount as the fetch
+  //request needs to be resent to the server if a user deletes an item, this ensures
+  //the list is updated as soon as the user deletes an item.
   fetchData = () => {
     fetch("/favorites")
       .then(res => res.json())
@@ -53,6 +57,8 @@ class UserFavorites extends Component {
       display = <div className="testTable">No Favorites Added Yet</div>;
     } else {
       display = this.state.userFavorites.map((key, i) => {
+        //The preview is checked for the file type and content is rendered accordingly. Video for video files
+        //and audio previews for audio files.
         if (
           this.state.userFavorites[i].kind === "music-video" ||
           this.state.userFavorites[i].kind === "tv-episode" ||

@@ -9,13 +9,13 @@ const searchBar = props => {
   // search or userfavorites accordingly
 
   if (props.location.pathname === "/favorites") {
-    button = <Link to="/">Back To Search</Link>;
+    button = <Link to="/">Back To Search -></Link>;
   } else if (props.location.pathname === "/") {
-    button = <Link to="/favorites">Go To Favorites</Link>;
+    button = <Link to="/favorites">Go To Favorites-></Link>;
   }
 
   // Props for the component only consist of the changeHandlers that deal
-  // with colleciton the user data for the search
+  // with the colleciton of the user data for the search
 
   return (
     <div className="search">
@@ -30,7 +30,7 @@ const searchBar = props => {
           onChange={props.changeTermHandler}
         />
         <select value={props.cat} onChange={props.changeCatHandler}>
-          <option value="all">Please Select</option>
+          <option value="all">Content Type</option>
           <option value="all">All</option>
           <option value="music">Music</option>
           <option value="musicVideo">Music Video</option>
@@ -49,4 +49,5 @@ const searchBar = props => {
   );
 };
 
+//withRouter required for enabling access to the locations
 export default withRouter(searchBar);

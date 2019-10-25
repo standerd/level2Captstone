@@ -15,6 +15,7 @@ const searchResults = props => {
     spinner = <h1>There Was An Error, please check input and search again.</h1>;
   }
 
+  //search result content is set to the below if not search data was submitted
   if (
     props.artwork === "" ||
     props.artwork === undefined ||
@@ -24,7 +25,6 @@ const searchResults = props => {
   } else {
     // if the preview URL returns a video preview, the table is adjusted for video
     // instead of audio.
-
     display = props.resultArr.map((key, i) => {
       if (
         props.resultArr[i].kind === "music-video" ||
@@ -57,7 +57,6 @@ const searchResults = props => {
         );
       } else {
         // if the preview URL is an audio type the table returns an audio element and not video
-
         return (
           <div key={i} className="testTable">
             <div className="artist">{props.resultArr[i].artistName}</div>
