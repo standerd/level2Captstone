@@ -16,6 +16,9 @@
     "start": "node app.js",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
+  "engines": {
+    "node": "10.15.3"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
