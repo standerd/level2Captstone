@@ -20,7 +20,7 @@ class UserFavorites extends Component {
       .then(res => res.json())
       .then(result => {
         this.setState({
-          userFavorites: result
+          userFavorites: result.data
         });
       })
       .catch(error => {

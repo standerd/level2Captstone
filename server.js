@@ -51,7 +51,7 @@ app.get("/home", (req, res) => {
 });
 
 app.get("/favorites", (req, res) => {
-  res.send(userFavorites);
+  res.json({data:userFavorites});
 });
 
 // Post request is received from React front end and the search values are stored in variables
