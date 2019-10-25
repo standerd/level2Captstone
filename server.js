@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.get("/home", (req, res) => {
   if (appStart) {
-    res.json("No Data Yet");
+    res.json({ data: "No Data Yet" });
   } else {
     fetch(
       "https://itunes.apple.com/search?term=" +
@@ -49,9 +49,9 @@ app.get("/home", (req, res) => {
       .then(response => response.json())
       .then(result => {
         if (searchError) {
-          res.json("Incorrect Data Entered Please Try Again");
+          res.json({ data: "Incorrect Data Entered Please Try Again" });
         } else {
-          res.send(result.results);
+          res.json({ data: result.results });
         }
       })
       .catch(error => {

@@ -105,8 +105,8 @@ class App extends Component {
       .then(res => res.json())
       .then(result => {
         this.setState({
-          resultArr: result,
-          artwork: result[0].artworkUrl100,
+          resultArr: result.data,
+          artwork: result.data[0].artworkUrl100,
           loaded: true
         });
       })
