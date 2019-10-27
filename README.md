@@ -8,13 +8,14 @@ There is no database or authentication so once the server restarts the user favo
 
 In order to use the program do the following:
 
-Copy to the project to your local machine.
+To start the project, open the project file and navigate to the folder in your text editor and open up  terminal window.
 
-Navigate to the foleder in the terminal. You will need 2 terminal instances as you need to run the React and Node servers.
+in the main project folder run npm install, which will install the server and it's dependancies.
 
-In the main project folder run npm start and then navigate into the client folder and run npm start.
+Once complete cd into the frontend folder and run npm install, this will install react and all of its dependancies.
 
-This should then have start both the React and Node server.
+Once the installation in completed, you need to run npm start in both the main project folder as well the the frontend folder. Running NPM start in both will start both the server localhost and also the react localhost.
 
-Starting the react server should automatically open a new window in your browser, if it does not, navigate to localhost:3000
-to see the main landing client interface.
+React should automatically open a new tab in you default browser, if it does not, please navigate to
+
+http://localhost:3000
