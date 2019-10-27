@@ -1,4 +1,4 @@
-# level2Captstone
+# level2Capstone
 
 This project was built using react and node js.
 
